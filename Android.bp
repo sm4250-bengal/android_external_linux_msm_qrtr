@@ -1,0 +1,29 @@
+package {
+    default_applicable_licenses: ["linux_msm_qrtr_license"],
+}
+
+license {
+    name: "linux_msm_qrtr_license",
+    license_kinds: ["SPDX-license-identifier-BSD-3-Clause"],
+    license_text: ["LICENSE"],
+}
+
+// Install this file at external/linux-msm/qrtr/Android.bp, next to the pinned
+// linux-msm/qrtr source.  The daemons consume this platform Bionic library;
+// there is no NDK or sdk_version boundary in this graph.
+cc_library {
+    name: "libqrtr",
+    vendor: true,
+    srcs: [
+        "lib/logging.c",
+        "lib/qmi.c",
+        "lib/qrtr.c",
+    ],
+    export_include_dirs: ["include"],
+    local_include_dirs: ["include"],
+    system_shared_libs: ["libc"],
+    cflags: [
+        "-Wall",
+        "-Wno-error",
+    ],
+}
